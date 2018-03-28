@@ -7,16 +7,18 @@
 <div class="text-center">
     Logowanie
    
-    <form>
+    <form action="~/LogIn/Logging" method="post">
         <div class="text-center">
-            <div class="text-center" style="marign-left:auto; margin-right:auto; float:left; font-size:18px">
+            <div class="text-center" style="float:left; font-size:18px">
                 Login: <br /> Password:
             </div>
             <div class="text-center" style="float:left">
                 <input type="text" name="login" /><br />
-                <input type="text" name="paswrd" />
+                <input type="text" name="pswrd" />
             </div>
-            <div style="clear:both"></div>
+            <div style="clear:both">
+                <input type="submit" value="Log In" name="end"/>
+            </div>
         </div>
     </form>
     

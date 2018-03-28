@@ -13,5 +13,11 @@ namespace bank.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Logging (string login, string pswrd)
+        {
+            return View();
+        }
     }
 }
