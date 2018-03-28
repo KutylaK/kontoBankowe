@@ -20,6 +20,23 @@ namespace bank.Controllers
             return View(db.LogIns.ToList());
         }
 
+        [HttpPost]
+        public ActionResult Logging( string Login, string Paswrd)
+        {
+            LogIn baseLogin = db.LogIns.Find(Login);
+            if (baseLogin == null)
+            {
+                return HttpNotFound();
+            }
+            if (Paswrd==baseLogin.Paswrd)
+            {
+                return View();
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
         // GET: LogIns/Details/5
         public ActionResult Details(string id)
         {
@@ -46,16 +63,16 @@ namespace bank.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "login,password")] LogIn logIn)
+        public ActionResult Create([Bind(Include = "Login,Paswrd")] LogIn logInToCreate)
         {
             if (ModelState.IsValid)
             {
-                db.LogIns.Add(logIn);
+                db.LogIns.Add(logInToCreate);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(logIn);
+            return View(logInToCreate);
         }
 
         // GET: LogIns/Edit/5
@@ -78,7 +95,7 @@ namespace bank.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "login,password")] LogIn logIn)
+        public ActionResult Edit([Bind(Include = "Login,Paswrd")] LogIn logIn)
         {
             if (ModelState.IsValid)
             {
