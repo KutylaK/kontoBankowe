@@ -12,6 +12,7 @@ namespace bank.Models
         [Key]
         public string Login { get; set; }
         public string Paswrd { get; set; }
+        public int Saldo { get; set; }
     }
 
     public class LogInDBContext : DbContext

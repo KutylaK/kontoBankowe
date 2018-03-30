@@ -1,0 +1,40 @@
+﻿@model IEnumerable<bank.Models.Przelew>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Odiorca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stawka)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Odiorca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stawka)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Nadawca }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Nadawca }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Nadawca })
+        </td>
+    </tr>
+}
+
+</table>

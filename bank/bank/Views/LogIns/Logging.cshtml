@@ -6,12 +6,11 @@
 }
 
 <h2>Logowanie</h2>
-@using (Html.BeginForm("Logging", "LogInsController", FormMethod.Post))
+@using (Html.BeginForm("LoggingIn", "LogIns", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Logging</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

@@ -20,17 +20,24 @@ namespace bank.Controllers
             return View(db.LogIns.ToList());
         }
 
-        [HttpPost]
-        public ActionResult Logging( string Login, string Paswrd)
+
+        public ActionResult Logging()
         {
-            LogIn baseLogin = db.LogIns.Find(Login);
+            return View();
+        }
+        
+
+        [HttpPost]
+        public ActionResult LoggingIn( string Login, string Paswrd)
+        {
+        LogIn baseLogin = db.LogIns.Find(Login);
             if (baseLogin == null)
             {
                 return HttpNotFound();
             }
             if (Paswrd==baseLogin.Paswrd)
             {
-                return View();
+                return RedirectToAction("Create", "Przelews");
             }
 
             return RedirectToAction("Index");

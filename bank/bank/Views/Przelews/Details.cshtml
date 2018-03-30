@@ -1,0 +1,35 @@
+﻿@model bank.Models.Przelew
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Przelew</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Odiorca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Odiorca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stawka)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stawka)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Nadawca }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
