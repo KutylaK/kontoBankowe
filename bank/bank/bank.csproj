@@ -150,7 +150,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInsController.cs" />
-    <Compile Include="Controllers\PrzelewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -162,9 +161,12 @@
     <Compile Include="Migrations\201803302120559_initial.Designer.cs">
       <DependentUpon>201803302120559_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803302225354_przelew.cs" />
+    <Compile Include="Migrations\201803302225354_przelew.Designer.cs">
+      <DependentUpon>201803302225354_przelew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LogIn.cs" />
-    <Compile Include="Models\Przelew.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -210,11 +212,8 @@
     <Content Include="Views\LogIns\Edit.cshtml" />
     <Content Include="Views\LogIns\Index.cshtml" />
     <Content Include="Views\LogIns\Logging.cshtml" />
-    <Content Include="Views\LogIns\LoggingIn.cshtml" />
-    <Content Include="Views\Przelews\Create.cshtml" />
-    <Content Include="Views\Przelews\Delete.cshtml" />
-    <Content Include="Views\Przelews\Details.cshtml" />
-    <Content Include="Views\Przelews\Index.cshtml" />
+    <Content Include="Views\LogIns\Logged.cshtml" />
+    <Content Include="Views\LogIns\CreatePrzelew.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -238,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803302120559_initial.resx">
       <DependentUpon>201803302120559_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803302225354_przelew.resx">
+      <DependentUpon>201803302225354_przelew.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

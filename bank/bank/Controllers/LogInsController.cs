@@ -25,19 +25,38 @@ namespace bank.Controllers
         {
             return View();
         }
-        
+
+        public ActionResult Logged()
+        {
+            return View(db.Przelewy.ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePrzelew([Bind(Include = "Nadawca,Odbiorca,Stawka")] Przelew zlecenie)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Przelewy.Add(zlecenie);
+                db.SaveChanges();
+                return RedirectToAction("Logged");
+            }
+
+            return View(zlecenie);
+        }
+
 
         [HttpPost]
         public ActionResult LoggingIn( string Login, string Paswrd)
         {
-        LogIn baseLogin = db.LogIns.Find(Login);
+            LogIn baseLogin = db.LogIns.Find(Login);
             if (baseLogin == null)
             {
                 return HttpNotFound();
             }
             if (Paswrd==baseLogin.Paswrd)
             {
-                return RedirectToAction("Create", "Przelews");
+                return RedirectToAction("Logged");
             }
 
             return RedirectToAction("Index");

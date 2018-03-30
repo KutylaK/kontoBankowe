@@ -9,7 +9,7 @@ namespace bank.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "bank.Models.LogInDBContext";
         }
 

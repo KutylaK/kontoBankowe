@@ -1,0 +1,42 @@
+﻿@model IEnumerable<bank.Models.Przelew>
+
+@{
+    ViewBag.Title = "Zalogowany";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "CreatePrzelew")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nadawca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Odiorca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stawka)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nadawca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Odiorca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stawka)
+        </td>
+    </tr>
+    }
+
+</table>
+
+

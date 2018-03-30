@@ -15,8 +15,18 @@ namespace bank.Models
         public int Saldo { get; set; }
     }
 
+    public class Przelew
+    {
+        [Key]
+        public string Nadawca { get; set; }
+        public string Odiorca { get; set; }
+        public int Stawka { get; set; }
+    }
+
+
     public class LogInDBContext : DbContext
     {
         public DbSet<LogIn> LogIns { get; set; }
+        public DbSet<Przelew> Przelewy { get; set; }
     }
 }
