@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using bank.Helper;
 using bank.Models;
+using bank.Models.ViewModels;
 
 namespace bank.Controllers
 {
@@ -21,50 +23,8 @@ namespace bank.Controllers
         }
 
 
-        public ActionResult Logging()
-        {
-            return View();
-        }
-
-        public ActionResult Logged()
-        {
-            return View(db.Przelewy.ToList());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreatePrzelew([Bind(Include = "Nadawca,Odbiorca,Stawka")] Przelew zlecenie)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Przelewy.Add(zlecenie);
-                db.SaveChanges();
-                return RedirectToAction("Logged");
-            }
-
-            return View(zlecenie);
-        }
-
-
-        [HttpPost]
-        public ActionResult LoggingIn( string Login, string Paswrd)
-        {
-            LogIn baseLogin = db.LogIns.Find(Login);
-            if (baseLogin == null)
-            {
-                return HttpNotFound();
-            }
-            if (Paswrd==baseLogin.Paswrd)
-            {
-                return RedirectToAction("Logged");
-            }
-
-            return RedirectToAction("Index");
-
-        }
-
         // GET: LogIns/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(Guid id)
         {
             if (id == null)
             {
@@ -89,7 +49,7 @@ namespace bank.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Login,Paswrd")] LogIn logInToCreate)
+        public ActionResult Create(LogIn logInToCreate)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +62,7 @@ namespace bank.Controllers
         }
 
         // GET: LogIns/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(Guid id)
         {
             if (id == null)
             {
@@ -121,15 +81,16 @@ namespace bank.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Login,Paswrd")] LogIn logIn)
+        public ActionResult Edit(LogIn model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(logIn).State = EntityState.Modified;
+                var en = db.LogIns.FirstOrDefault(_ => _.OId==model.OId);
+                en.Paswrd = model.Paswrd;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(logIn);
+            return View(model);
         }
 
         // GET: LogIns/Delete/5
@@ -165,6 +126,76 @@ namespace bank.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Logging()
+        {
+            return View(new LogIn());
+        }
+
+        public ActionResult Logged()
+        {
+            var colect = from item in db.Przelewy
+                         where item.Nadawca == AppHelper.CurrentUser.Login || item.Odbiorca == AppHelper.CurrentUser.Login
+                         select item;
+            var colorColect=new List<PrzelewColor>();
+            foreach (var item in colect)
+            {
+                if(item.Nadawca == AppHelper.CurrentUser.Login)
+                {
+                    colorColect.Add(new PrzelewColor(item, "background-color:#cc0000"));
+                }
+                else
+                {
+                    colorColect.Add(new PrzelewColor(item, "background-color:#00cc00"));
+                }
+            }
+            return View(colorColect);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePrzelew(Przelew zlecenie)
+        {
+            zlecenie.Nadawca=AppHelper.CurrentUser.Login;
+            if (ModelState.IsValid)
+            {
+               
+                db.Przelewy.Add(zlecenie);
+                LogIn zrodlo = db.LogIns.FirstOrDefault(_ => _.Login == AppHelper.CurrentUser.Login);
+                zrodlo.Saldo -= zlecenie.Stawka;
+                AppHelper.CurrentUser.Saldo -= zlecenie.Stawka;
+                LogIn cel = db.LogIns.FirstOrDefault(_ => zlecenie.Odbiorca==_.Login);
+                cel.Saldo += zlecenie.Stawka;
+                db.SaveChanges();
+                return RedirectToAction("Logged");
+            }
+
+            return View(zlecenie);
+        }
+
+        public ActionResult CreatePrzelew()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult LoggingIn(LogIn model)
+        {
+            LogIn baseLogin = db.LogIns.FirstOrDefault(_ =>model.Login==_.Login);
+            if (baseLogin == null)
+            {
+                return HttpNotFound();
+            }
+            if (model.Paswrd == baseLogin.Paswrd)
+            {
+                HttpContext.Session["user"] = baseLogin;
+                return RedirectToAction("Logged");
+            }
+
+            return RedirectToAction("Index");
+
         }
     }
 }

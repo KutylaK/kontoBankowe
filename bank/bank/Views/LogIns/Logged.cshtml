@@ -1,9 +1,12 @@
-﻿@model IEnumerable<bank.Models.Przelew>
+﻿@model IEnumerable<bank.Models.ViewModels.PrzelewColor>
+@using bank.Helper
 
 @{
     ViewBag.Title = "Zalogowany";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h1>Twoje saldo: @AppHelper.CurrentUser.Saldo</h1>
 
 <p>
     @Html.ActionLink("Create New", "CreatePrzelew")
@@ -11,28 +14,28 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nadawca)
+            @Html.DisplayNameFor(model => model.przelew.Nadawca)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Odiorca)
+            @Html.DisplayNameFor(model => model.przelew.Odbiorca)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Stawka)
+            @Html.DisplayNameFor(model => model.przelew.Stawka)
         </th>
         <th></th>
     </tr>
-
+    
     @foreach (var item in Model)
     {
-    <tr>
+    <tr style="@item.kolor">
         <td>
-            @Html.DisplayFor(modelItem => item.Nadawca)
+            @item.przelew.Nadawca
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Odiorca)
+            @item.przelew.Odbiorca
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Stawka)
+            @item.przelew.Stawka
         </td>
     </tr>
     }

@@ -153,20 +153,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201803281153308_InitialCreate.cs" />
-    <Compile Include="Migrations\201803281153308_InitialCreate.Designer.cs">
-      <DependentUpon>201803281153308_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803302120559_initial.cs" />
-    <Compile Include="Migrations\201803302120559_initial.Designer.cs">
-      <DependentUpon>201803302120559_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803302225354_przelew.cs" />
-    <Compile Include="Migrations\201803302225354_przelew.Designer.cs">
-      <DependentUpon>201803302225354_przelew.cs</DependentUpon>
+    <Compile Include="Helper\AppHelper.cs" />
+    <Compile Include="Migrations\201803311615232_new.cs" />
+    <Compile Include="Migrations\201803311615232_new.Designer.cs">
+      <DependentUpon>201803311615232_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LogIn.cs" />
+    <Compile Include="Models\ViewModels\PrzelewColor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -232,14 +226,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803281153308_InitialCreate.resx">
-      <DependentUpon>201803281153308_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803302120559_initial.resx">
-      <DependentUpon>201803302120559_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803302225354_przelew.resx">
-      <DependentUpon>201803302225354_przelew.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803311615232_new.resx">
+      <DependentUpon>201803311615232_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
