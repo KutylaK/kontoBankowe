@@ -3,7 +3,7 @@ namespace bank.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _new : DbMigration
+    public partial class bez_uint : DbMigration
     {
         public override void Up()
         {

@@ -15,8 +15,8 @@ namespace bank.Migrations
         protected override void Seed(bank.Models.LogInDBContext context)
         {
             context.LogIns.AddOrUpdate(
-            new Models.LogIn() { OId = Guid.NewGuid(), Login = "admin", Paswrd = "admin", Saldo = 10000000 }
-            );
+           new Models.LogIn() { OId = Guid.NewGuid(), Login = "admin", Paswrd = "admin", Saldo = 10000000 }
+           );
         }
     }
 }

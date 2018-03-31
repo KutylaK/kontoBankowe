@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "LoggedWrong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Nie można wykonać tej operacji</h1>
+@using (Html.BeginForm("Logged","LogIns"))
+{<div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <br/>
+            <input type="submit" value="Ok" class="btn btn-default" />
+        </div>
+    </div>
+}

@@ -85,7 +85,7 @@ namespace bank.Controllers
         {
             if (ModelState.IsValid)
             {
-                var en = db.LogIns.FirstOrDefault(_ => _.OId==model.OId);
+                var en = db.LogIns.FirstOrDefault(_ => _.OId == model.OId);
                 en.Paswrd = model.Paswrd;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -94,13 +94,13 @@ namespace bank.Controllers
         }
 
         // GET: LogIns/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(LogIn model)
         {
-            if (id == null)
+            if (model.OId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LogIn logIn = db.LogIns.Find(id);
+            LogIn logIn = db.LogIns.FirstOrDefault(_ =>_.OId==model.OId);
             if (logIn == null)
             {
                 return HttpNotFound();
@@ -111,9 +111,9 @@ namespace bank.Controllers
         // POST: LogIns/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(LogIn id)
         {
-            LogIn logIn = db.LogIns.Find(id);
+            LogIn logIn = db.LogIns.Find(id.Login);
             db.LogIns.Remove(logIn);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -138,10 +138,10 @@ namespace bank.Controllers
             var colect = from item in db.Przelewy
                          where item.Nadawca == AppHelper.CurrentUser.Login || item.Odbiorca == AppHelper.CurrentUser.Login
                          select item;
-            var colorColect=new List<PrzelewColor>();
+            var colorColect = new List<PrzelewColor>();
             foreach (var item in colect)
             {
-                if(item.Nadawca == AppHelper.CurrentUser.Login)
+                if (item.Nadawca == AppHelper.CurrentUser.Login)
                 {
                     colorColect.Add(new PrzelewColor(item, "background-color:#cc0000"));
                 }
@@ -153,29 +153,44 @@ namespace bank.Controllers
             return View(colorColect);
         }
 
+        public ActionResult LoggedWrong()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreatePrzelew(Przelew zlecenie)
         {
-            zlecenie.Nadawca=AppHelper.CurrentUser.Login;
+            
+            zlecenie.Nadawca = AppHelper.CurrentUser.Login;
             if (ModelState.IsValid)
             {
-               
+
                 db.Przelewy.Add(zlecenie);
                 LogIn zrodlo = db.LogIns.FirstOrDefault(_ => _.Login == AppHelper.CurrentUser.Login);
-                zrodlo.Saldo -= zlecenie.Stawka;
-                AppHelper.CurrentUser.Saldo -= zlecenie.Stawka;
-                LogIn cel = db.LogIns.FirstOrDefault(_ => zlecenie.Odbiorca==_.Login);
-                cel.Saldo += zlecenie.Stawka;
-                db.SaveChanges();
-                return RedirectToAction("Logged");
+                LogIn cel = db.LogIns.FirstOrDefault(_ => zlecenie.Odbiorca == _.Login);
+                if (zrodlo.Saldo >= zlecenie.Stawka && zlecenie.Stawka>0 && cel!=null)
+                {
+                    zrodlo.Saldo -= zlecenie.Stawka;
+                    AppHelper.CurrentUser.Saldo -= zlecenie.Stawka;
+                    cel.Saldo += zlecenie.Stawka;
+                    db.SaveChanges();
+                    return RedirectToAction("Logged");
+                }
+                else
+                    return RedirectToAction("LoggedWrong");
+                
             }
-
+            
             return View(zlecenie);
         }
 
         public ActionResult CreatePrzelew()
         {
+            var zwrot = from c in db.LogIns
+                        select c.Login;
+            ViewBag.lista = zwrot;
             return View();
         }
 
@@ -183,7 +198,7 @@ namespace bank.Controllers
         [HttpPost]
         public ActionResult LoggingIn(LogIn model)
         {
-            LogIn baseLogin = db.LogIns.FirstOrDefault(_ =>model.Login==_.Login);
+            LogIn baseLogin = db.LogIns.FirstOrDefault(_ => model.Login == _.Login);
             if (baseLogin == null)
             {
                 return HttpNotFound();

@@ -154,9 +154,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\AppHelper.cs" />
-    <Compile Include="Migrations\201803311615232_new.cs" />
-    <Compile Include="Migrations\201803311615232_new.Designer.cs">
-      <DependentUpon>201803311615232_new.cs</DependentUpon>
+    <Compile Include="Migrations\201803311927072_bez_uint.cs" />
+    <Compile Include="Migrations\201803311927072_bez_uint.Designer.cs">
+      <DependentUpon>201803311927072_bez_uint.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LogIn.cs" />
@@ -208,6 +208,8 @@
     <Content Include="Views\LogIns\Logging.cshtml" />
     <Content Include="Views\LogIns\Logged.cshtml" />
     <Content Include="Views\LogIns\CreatePrzelew.cshtml" />
+    <Content Include="Views\LogIns\LoggedWrong.cshtml" />
+    <Content Include="Views\Shared\_Layout-Logged.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -226,8 +228,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803311615232_new.resx">
-      <DependentUpon>201803311615232_new.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803311927072_bez_uint.resx">
+      <DependentUpon>201803311927072_bez_uint.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
