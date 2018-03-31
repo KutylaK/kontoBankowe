@@ -19,6 +19,7 @@
             @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.Login)
+                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -26,6 +27,7 @@
             @Html.LabelFor(model => model.Paswrd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.Paswrd)
+                @Html.ValidationMessageFor(model => model.Paswrd, "", new { @class = "text-danger" })
             </div>
         </div>
 

@@ -94,26 +94,22 @@ namespace bank.Controllers
         }
 
         // GET: LogIns/Delete/5
-        public ActionResult Delete(LogIn model)
+        public ActionResult Delete(Guid id)
         {
-            if (model.OId == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LogIn logIn = db.LogIns.FirstOrDefault(_ =>_.OId==model.OId);
-            if (logIn == null)
-            {
-                return HttpNotFound();
-            }
-            return View(logIn);
+            TempData["id"] = id;
+            return View();
         }
 
         // POST: LogIns/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(LogIn id)
+        public ActionResult DeleteConfirmed()
         {
-            LogIn logIn = db.LogIns.Find(id.Login);
+            LogIn logIn = db.LogIns.Find(TempData["id"]);
             db.LogIns.Remove(logIn);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -189,7 +185,9 @@ namespace bank.Controllers
         public ActionResult CreatePrzelew()
         {
             var zwrot = from c in db.LogIns
+                        where c.Login != AppHelper.CurrentUser.Login
                         select c.Login;
+            
             ViewBag.lista = zwrot;
             return View();
         }
@@ -198,6 +196,7 @@ namespace bank.Controllers
         [HttpPost]
         public ActionResult LoggingIn(LogIn model)
         {
+
             LogIn baseLogin = db.LogIns.FirstOrDefault(_ => model.Login == _.Login);
             if (baseLogin == null)
             {
