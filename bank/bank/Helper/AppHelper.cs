@@ -17,5 +17,14 @@ namespace bank.Helper
                 HttpContext.Current.Session["user"] = value;
             }
         }
+
+        public static string CurrentLayout
+        {
+            get => HttpContext.Current.Session["layout"] as string;
+            set
+            {
+                HttpContext.Current.Session["layout"] = value;
+            }
+        }
     }
 }

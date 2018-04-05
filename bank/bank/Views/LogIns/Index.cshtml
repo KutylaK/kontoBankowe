@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<bank.Models.LogIn>
-
+@using bank.Helper
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/" + AppHelper.CurrentLayout;
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -18,23 +14,32 @@
         <th>
             @Html.DisplayNameFor(model => model.Paswrd)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Saldo);
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Paswrd)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.OId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.OId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.OId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Login)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paswrd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Saldo)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.OId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.OId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.OId })
+            </td>
+        </tr>
+    }
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 
 </table>

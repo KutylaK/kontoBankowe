@@ -1,6 +1,8 @@
-﻿@{
+﻿@using bank.Helper
+
+@{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/" + AppHelper.CurrentLayout;
 }
 
 <h2>Delete</h2>

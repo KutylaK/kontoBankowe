@@ -1,8 +1,9 @@
 ﻿@model bank.Models.Przelew
+@using bank.Helper
 
 @{
     ViewBag.Title = "CreatePrzelew";
-    Layout = "~/Views/Shared/_Layout-Logged.cshtml";
+    Layout = "~/Views/Shared/" + AppHelper.CurrentLayout;
 }
 
 

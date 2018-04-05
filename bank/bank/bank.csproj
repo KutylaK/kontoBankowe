@@ -158,6 +158,10 @@
     <Compile Include="Migrations\201803311927072_bez_uint.Designer.cs">
       <DependentUpon>201803311927072_bez_uint.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804042359391_data.cs" />
+    <Compile Include="Migrations\201804042359391_data.Designer.cs">
+      <DependentUpon>201804042359391_data.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LogIn.cs" />
     <Compile Include="Models\ViewModels\PrzelewColor.cs" />
@@ -208,6 +212,7 @@
     <Content Include="Views\LogIns\CreatePrzelew.cshtml" />
     <Content Include="Views\LogIns\LoggedWrong.cshtml" />
     <Content Include="Views\Shared\_Layout-Logged.cshtml" />
+    <Content Include="Views\Shared\_Layout-Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -228,6 +233,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803311927072_bez_uint.resx">
       <DependentUpon>201803311927072_bez_uint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804042359391_data.resx">
+      <DependentUpon>201804042359391_data.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -133,6 +133,7 @@ namespace bank.Controllers
         {
             var colect = from item in db.Przelewy
                          where item.Nadawca == AppHelper.CurrentUser.Login || item.Odbiorca == AppHelper.CurrentUser.Login
+                         orderby item.Data descending
                          select item;
             var colorColect = new List<PrzelewColor>();
             foreach (var item in colect)
@@ -162,8 +163,9 @@ namespace bank.Controllers
             zlecenie.Nadawca = AppHelper.CurrentUser.Login;
             if (ModelState.IsValid)
             {
-
+                
                 db.Przelewy.Add(zlecenie);
+                zlecenie.Data = DateTime.Now;
                 LogIn zrodlo = db.LogIns.FirstOrDefault(_ => _.Login == AppHelper.CurrentUser.Login);
                 LogIn cel = db.LogIns.FirstOrDefault(_ => zlecenie.Odbiorca == _.Login);
                 if (zrodlo.Saldo >= zlecenie.Stawka && zlecenie.Stawka>0 && cel!=null)
@@ -196,19 +198,24 @@ namespace bank.Controllers
         [HttpPost]
         public ActionResult LoggingIn(LogIn model)
         {
-
             LogIn baseLogin = db.LogIns.FirstOrDefault(_ => model.Login == _.Login);
-            if (baseLogin == null)
+            HttpContext.Session["layout"] = "_Layout-Logged.cshtml";
+            if (db.LogIns == null || baseLogin==null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Logging");
+            }
+            if (baseLogin.Login == "admin" && baseLogin.Paswrd == "admin")
+            {
+                HttpContext.Session["layout"] = "_Layout-Admin.cshtml";
             }
             if (model.Paswrd == baseLogin.Paswrd)
             {
+                
                 HttpContext.Session["user"] = baseLogin;
                 return RedirectToAction("Logged");
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Logging");
 
         }
     }

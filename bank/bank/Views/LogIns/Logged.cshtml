@@ -3,14 +3,12 @@
 
 @{
     ViewBag.Title = "Zalogowany";
-    Layout = "~/Views/Shared/_Layout-Logged.cshtml";
+    Layout = "~/Views/Shared/"+ AppHelper.CurrentLayout;
 }
 
 <h1>Twoje saldo: @AppHelper.CurrentUser.Saldo</h1>
 
-<p>
-    @Html.ActionLink("Wykonaj przelew", "CreatePrzelew")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -22,24 +20,31 @@
         <th>
             @Html.DisplayNameFor(model => model.przelew.Stawka)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.przelew.Data)
+        </th>
     </tr>
-    
+
     @foreach (var item in Model)
     {
-    <tr style="@item.kolor">
-        <td>
-            @item.przelew.Nadawca
-        </td>
-        <td>
-            @item.przelew.Odbiorca
-        </td>
-        <td>
-            @item.przelew.Stawka
-        </td>
-    </tr>
+        <tr style="@item.kolor">
+            <td>
+                @item.przelew.Nadawca
+            </td>
+            <td>
+                @item.przelew.Odbiorca
+            </td>
+            <td>
+                @item.przelew.Stawka
+            </td>
+            <td>
+                @item.przelew.Data
+            </td>
+        </tr>
     }
-
+    <p>
+        @Html.ActionLink("Wykonaj przelew", "CreatePrzelew")
+    </p>
 </table>
 
 

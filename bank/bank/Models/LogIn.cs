@@ -31,6 +31,9 @@ namespace bank.Models
         public string Nadawca { get; set; }
         public string Odbiorca { get; set; }
         public int Stawka { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime Data { get; set; }
 
         public Przelew()
         {

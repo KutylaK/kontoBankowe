@@ -1,8 +1,9 @@
 ﻿@model bank.Models.LogIn
+@using bank.Helper
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/" + AppHelper.CurrentLayout;
 }
 
 <h2>Details</h2>

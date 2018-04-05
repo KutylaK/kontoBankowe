@@ -21,5 +21,11 @@ namespace bank.Migrations
            new Models.LogIn() { OId = Guid.NewGuid(), Login = "piotrek", Paswrd = "piotrek", Saldo = 100 }
            );
         }
+
+        public static void Updating(bank.Models.LogInDBContext context)
+        {
+            Configuration conf = new Configuration();
+            conf.Seed(context);
+        }
     }
 }
