@@ -150,10 +150,6 @@ namespace bank.Controllers
             return View(colorColect);
         }
 
-        public ActionResult LoggedWrong()
-        {
-            return View();
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -161,6 +157,7 @@ namespace bank.Controllers
         {
             
             zlecenie.Nadawca = AppHelper.CurrentUser.Login;
+            TempData["IsVisible"] = false;
             if (ModelState.IsValid)
             {
                 
@@ -168,7 +165,7 @@ namespace bank.Controllers
                 zlecenie.Data = DateTime.Now;
                 LogIn zrodlo = db.LogIns.FirstOrDefault(_ => _.Login == AppHelper.CurrentUser.Login);
                 LogIn cel = db.LogIns.FirstOrDefault(_ => zlecenie.Odbiorca == _.Login);
-                if (zrodlo.Saldo >= zlecenie.Stawka && zlecenie.Stawka>0 && cel!=null)
+                if (zrodlo.Saldo >= zlecenie.Stawka && zlecenie.Stawka > 0 && cel != null)
                 {
                     zrodlo.Saldo -= zlecenie.Stawka;
                     AppHelper.CurrentUser.Saldo -= zlecenie.Stawka;
@@ -177,7 +174,10 @@ namespace bank.Controllers
                     return RedirectToAction("Logged");
                 }
                 else
-                    return RedirectToAction("LoggedWrong");
+                {
+                    TempData["IsVisible"] = true;
+                    return RedirectToAction("CreatePrzelew");
+                }
                 
             }
             

@@ -211,7 +211,6 @@
     <Content Include="Views\LogIns\Logging.cshtml" />
     <Content Include="Views\LogIns\Logged.cshtml" />
     <Content Include="Views\LogIns\CreatePrzelew.cshtml" />
-    <Content Include="Views\LogIns\LoggedWrong.cshtml" />
     <Content Include="Views\Shared\_Layout-Logged.cshtml" />
     <Content Include="Views\Shared\_Layout-Admin.cshtml" />
   </ItemGroup>
