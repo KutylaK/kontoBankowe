@@ -16,7 +16,12 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.OId)
         @Html.HiddenFor(model => model.Saldo)
-        <div id="error"></div>
+        
+        @if (TempData["IsVisible"]!=null && (bool)TempData["IsVisible"])
+        { 
+            <div class="col-md-2"></div>
+            <div class="col-md-10" style="color:red">Niepoprawne dane wejśiowe</div>
+        }
         <div class="form-group">
             @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -39,5 +44,6 @@
             </div>
         </div>
     </div>
+    
 }
 

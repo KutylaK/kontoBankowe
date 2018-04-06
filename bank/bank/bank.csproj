@@ -165,6 +165,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LogIn.cs" />
     <Compile Include="Models\ViewModels\PrzelewColor.cs" />
+    <Compile Include="Models\ViewModels\ValidateLogIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

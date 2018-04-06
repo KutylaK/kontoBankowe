@@ -13,8 +13,6 @@ namespace bank.Controllers
         private LogInDBContext db = new LogInDBContext();
         public ActionResult Index()
         {
-
-
             HttpContext.Session["layout"] = "_Layout.cshtml";
             if (db.LogIns == null || db.LogIns.Count() == 0)
             {

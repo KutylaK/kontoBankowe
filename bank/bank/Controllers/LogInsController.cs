@@ -126,7 +126,7 @@ namespace bank.Controllers
 
         public ActionResult Logging()
         {
-            return View(new LogIn());
+            return View();
         }
 
         public ActionResult Logged()
@@ -200,22 +200,19 @@ namespace bank.Controllers
         {
             LogIn baseLogin = db.LogIns.FirstOrDefault(_ => model.Login == _.Login);
             HttpContext.Session["layout"] = "_Layout-Logged.cshtml";
-            if (db.LogIns == null || baseLogin==null)
+            TempData["IsVisible"] = false;
+            if (db.LogIns == null || baseLogin==null || model.Paswrd != baseLogin.Paswrd)
             {
-                return RedirectToAction("Logging");
+                TempData["IsVisible"] = true;
+                return RedirectToAction("Logging",model);
             }
             if (baseLogin.Login == "admin" && baseLogin.Paswrd == "admin")
             {
                 HttpContext.Session["layout"] = "_Layout-Admin.cshtml";
             }
-            if (model.Paswrd == baseLogin.Paswrd)
-            {
-                
-                HttpContext.Session["user"] = baseLogin;
-                return RedirectToAction("Logged");
-            }
-
-            return RedirectToAction("Logging");
+           
+            HttpContext.Session["user"] = baseLogin;
+            return RedirectToAction("Logged");
 
         }
     }
